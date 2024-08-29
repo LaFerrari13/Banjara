@@ -1,0 +1,27 @@
+<div class="parent">
+         <!-- FORMULAIRE DE CONNEXION -->
+    <div class="card">
+        <h2>Signup Form</h2>
+
+            <!-- SE CONNECTER / S'INSCRIRE -->
+        <div class="login_register">
+            <button routerLink="/adminlogin"  class="login" target="blank">Login</button>
+            <button class="register" target="blank">Signup</button>
+        </div>
+
+            <!-- FORMULAIRE -->
+        <form class="form" (ngSubmit)="onSubmit()" [formGroup]="adminForm">
+            <input type="name" placeholder="Name" formControlName="name" class="name">
+            <input type="email" placeholder="Email Address" formControlName="email"  class="email">
+            <input type="password" placeholder="Password" formControlName="password" class="pass">
+            <button type="submit" class="login_btn">Sign up</button>
+        </form>
+
+            <!-- MOT DE PASSE OUBLIE ? -->
+        
+
+            <!-- BOUTTON LOGIN -->
+            
+    </div>
+        
+</div>

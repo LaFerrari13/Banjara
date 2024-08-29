@@ -1,0 +1,58 @@
+
+
+
+<div class="parent">
+    <section class="profile-card">
+        <div class="image">
+            <!-- <img src="userpic.jpg" alt="user image"> -->
+            <img [src]="adminImage" alt="user image">
+            <i class="bi bi-pencil-square"> <input type="file" (change)="onFileSelect($event)"> </i>
+            
+        </div>
+        <div class="text-data">
+            <h2> {{admin.name}} </h2>
+            <p> {{admin.email}}</p>
+
+            <button class="btn btn-danger" (click)="logout()">Log out</button>
+            
+        </div>
+
+        
+
+        <!-- <div class="media-icons">
+            <a href="#" style="background-color: #ff0000;">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="#" style="background-color: #1da1f2">
+                <i class="fa-brands fa-twitter"></i>
+            </a>
+            <a href="#" style="background-color: #4267b2">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="#" style="background-color: #e13062">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+        <div class="buttons">
+            <button>Subscribe</button>
+            <button>Message</button>
+        </div>
+        <div class="analytics">
+            <div class="data">
+                <i class="fa-solid fa-heart"></i>
+                <p>60K</p>
+            </div>
+            <div class="data">
+                <i class="fa-regular fa-comment"></i>
+                <p>60K</p>
+            </div>
+            <div class="data">
+                <i class="fa-solid fa-share"></i>
+                <p>60K</p>
+            </div>
+        </div> -->
+    </section>
+</div>
+
+
+
