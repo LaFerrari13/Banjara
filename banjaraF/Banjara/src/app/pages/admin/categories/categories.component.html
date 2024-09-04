@@ -24,6 +24,36 @@
         </div>
     </div>
 
+
+    <div class="col-4" *ngIf="newProductTableVisible">
+        <div class="card">
+            <div class="card-header bg-custom-primary">
+                <div class="row">
+                    <div class="col-6">
+                        New Product 
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-success" (click)="newProductTableVisible=false"> Close </button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="productForm">
+                        <input type="name" placeholder="Name" formControlName="name" class="name">
+                        <!-- <input type="text" placeholder="Type" formControlName="type"  class="typeinp"> -->
+
+                        <input type="number" placeholder="Price" formControlName="price" class="priceinp">
+                        <input type="file" placeholder="meow" formControlName="image" (change)="fileSelect($event)">
+                        <button type="submit" class="saveprod"> Save product </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="products">
         <router-outlet></router-outlet>
     </div>
