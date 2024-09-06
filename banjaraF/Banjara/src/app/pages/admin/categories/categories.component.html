@@ -25,28 +25,30 @@
     </div>
 
 
-    <div class="col-4" *ngIf="newProductTableVisible">
+    <div class="col-4" *ngIf="newCategoryTableVisible">
         <div class="card">
             <div class="card-header bg-custom-primary">
                 <div class="row">
                     <div class="col-6">
-                        New Product 
+                        New Category 
                     </div>
                     <div class="col-6 text-end">
-                        <button class="btn btn-sm btn-success" (click)="newProductTableVisible=false"> Close </button>
+                        <button class="btn btn-sm btn-success" (click)="newCategoryTableVisible=false"> Close </button>
                     </div>
                 </div>
 
             </div>
             <div class="card-body">
                 <div class="row">
-                    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="productForm">
+                    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="catForm">
                         <input type="name" placeholder="Name" formControlName="name" class="name">
                         <!-- <input type="text" placeholder="Type" formControlName="type"  class="typeinp"> -->
-
-                        <input type="number" placeholder="Price" formControlName="price" class="priceinp">
-                        <input type="file" placeholder="meow" formControlName="image" (change)="fileSelect($event)">
-                        <button type="submit" class="saveprod"> Save product </button>
+                        <select id="parentCategory" formControlName="parentCategory">
+                            <option *ngFor="let cat of categories" value={{cat.id}}>
+                                {{cat.name}}
+                            </option>
+                        </select>
+                        <button type="submit" class="saveCat"> Save product </button>
                     </form>
                 </div>
             </div>

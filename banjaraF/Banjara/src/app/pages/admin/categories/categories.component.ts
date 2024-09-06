@@ -7,17 +7,19 @@ import { ProductsComponent } from "../products/products.component";
 import { HttpClient } from '@angular/common/http';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/Products';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ProductsComponent],
+  imports: [CommonModule, RouterOutlet, ProductsComponent, ReactiveFormsModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit{
 
 
+  newCategoryTableVisible: boolean = true;
 
   categories!: Category[];
 
@@ -26,13 +28,35 @@ export class CategoriesComponent implements OnInit{
   catProds!: Product[];
 
 
-  constructor(private catService: CategoryService, private http: HttpClient, private prodService: ProductService){
+  catSave: Category = {
+    name: "",
+    id: 0,
+    parentId: 0
+  }
+
+
+  catForm!: FormGroup;
+
+  constructor(private catService: CategoryService, private http: HttpClient, private prodService: ProductService, private fb: FormBuilder){
 
   }  
 
 
   ngOnInit(): void {
     this.getAllCats();
+
+
+
+
+
+    this.catForm = this.fb.group({
+      category: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      image: ['', [Validators.required]]
+    });
+
+
   }
 
 
@@ -64,6 +88,30 @@ export class CategoriesComponent implements OnInit{
     )
 
 
+  }
+
+
+  onSubmit(): void{
+    console.log('submitted');
+
+
+    
+    
+
+    if(this.catForm.valid){
+
+      console.log("form valid, creating admin");
+
+      this.catSave.name = this.catForm.value.name;
+      this.catSave.parentId = this.catForm.value.parentId;
+      
+      this.createCategory(this.catSave);
+    }
+
+  }
+
+  createCategory(cat: Category): void{
+    this.catService.createCategory(cat);
   }
 
   
