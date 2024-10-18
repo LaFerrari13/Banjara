@@ -19,7 +19,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class CategoriesComponent implements OnInit{
 
 
-  newCategoryTableVisible: boolean = true;
+  newCategoryTableVisible: boolean = false;
 
   categories!: Category[];
 
@@ -50,10 +50,9 @@ export class CategoriesComponent implements OnInit{
 
 
     this.catForm = this.fb.group({
-      category: ['', [Validators.required]],
-      price: ['', [Validators.required]],
+      parentId: [0, [Validators.required]],
       name: ['', [Validators.required]],
-      image: ['', [Validators.required]]
+      
     });
 
 
@@ -100,10 +99,15 @@ export class CategoriesComponent implements OnInit{
 
     if(this.catForm.valid){
 
-      console.log("form valid, creating admin");
+      console.log("form valid, creating category");
 
       this.catSave.name = this.catForm.value.name;
-      this.catSave.parentId = this.catForm.value.parentId;
+      if(!this.catForm.value.parentId){
+        this.catSave.parentId = 0;
+      }
+      else{
+        this.catSave.parentId = this.catForm.value.parentId;
+      }
       
       this.createCategory(this.catSave);
     }
@@ -111,7 +115,14 @@ export class CategoriesComponent implements OnInit{
   }
 
   createCategory(cat: Category): void{
-    this.catService.createCategory(cat);
+    this.catService.createCategory(cat).subscribe(
+      (resp: Category)=>{
+        console.log("SAVED ! CATEGORY SAVED!");
+      },
+      (er: Error)=>{
+        console.log("some error :/");
+      }
+    )
   }
 
   

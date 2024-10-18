@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../../models/Products';
 import { ProductService } from '../../../services/product.service';
 import { HttpClient } from '@angular/common/http';
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/Category';
+import { ProductcardComponent } from '../productcard/productcard.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ProductcardComponent],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrl: './products.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit {
 
@@ -46,7 +48,7 @@ export class ProductsComponent implements OnInit {
 
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private catService: CategoryService){}
+  constructor(private fb: FormBuilder, private productService: ProductService, private catService: CategoryService, private cdr: ChangeDetectorRef){}
 
 
   ngOnInit(): void{
@@ -103,6 +105,10 @@ export class ProductsComponent implements OnInit {
           pd.img = `data:image/jpeg;base64,${pd.img}`
 
         }
+
+        this.cdr.markForCheck();
+
+        console.log(`all prods loaded!`);
       }
     )
   }
@@ -153,15 +159,21 @@ export class ProductsComponent implements OnInit {
           this.productService.addProductPfp(response.id, this.selectedFile).subscribe((rep: Product)=>{
             console.log("picture added!");
             console.log(rep.img);
+            this.getAllProducts();
           })
         }
       }
     )
 
-    this.getAllProducts();
 
+    
   }
-
+  
+  renderCheck(id: number): void{
+    console.log("rendered " );
+    
+    
+  }
   
 
 }

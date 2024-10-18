@@ -1,12 +1,24 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
+        <div [ngClass]="newCategoryTableVisible ? 'col-8' : 'col-12'">
             <div class="card border-custom">
                 <div class="card-header bg-custom text-custom">
-                    <h3 class="card-title">
+                    <!-- <h3 class="card-title">
                         <i class="bi bi-bookmark"></i> Categories
                     </h3>
+                    <div class="col-12 text-end">
+                        <button class="btn btn-sm btn-success" (click)="newCategoryTableVisible=true">New</button>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-6">
+                            Product List
+                        </div>
+                        <div class="col-6 text-end">
+                            <button class="btn btn-sm btn-success" (click)="newCategoryTableVisible=true">New</button>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="card-body">
                     <div class="row">
                         <div class="col-10 col-md-10">
@@ -22,42 +34,47 @@
                 <app-products [catproducts]="catProds"></app-products>
             </div>
         </div>
-    </div>
 
 
-    <div class="col-4" *ngIf="newCategoryTableVisible">
-        <div class="card">
-            <div class="card-header bg-custom-primary">
-                <div class="row">
-                    <div class="col-6">
-                        New Category 
+        <div class="col-4" *ngIf="newCategoryTableVisible">
+            <div class="card">
+                <div class="card-header bg-custom-primary">
+                    <div class="row">
+                        <div class="col-6">
+                            New Category 
+                        </div>
+                        <div class="col-6 text-end">
+                            <button class="btn btn-sm btn-success" (click)="newCategoryTableVisible=false"> Close </button>
+                        </div>
                     </div>
-                    <div class="col-6 text-end">
-                        <button class="btn btn-sm btn-success" (click)="newCategoryTableVisible=false"> Close </button>
-                    </div>
+    
                 </div>
-
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <form class="form" (ngSubmit)="onSubmit()" [formGroup]="catForm">
-                        <input type="name" placeholder="Name" formControlName="name" class="name">
-                        <!-- <input type="text" placeholder="Type" formControlName="type"  class="typeinp"> -->
-                        <select id="parentCategory" formControlName="parentCategory">
-                            <option *ngFor="let cat of categories" value={{cat.id}}>
-                                {{cat.name}}
-                            </option>
-                        </select>
-                        <button type="submit" class="saveCat"> Save product </button>
-                    </form>
+                <div class="card-body">
+                    <div class="row">
+                        <form class="form" (ngSubmit)="onSubmit()" [formGroup]="catForm">
+                            <input type="name" placeholder="Name" formControlName="name" class="name">
+                            <!-- <input type="text" placeholder="Type" formControlName="type"  class="typeinp"> -->
+                            <select id="parentId" formControlName="parentId">
+                                <option *ngFor="let cat of categories" value={{cat.id}}>
+                                    {{cat.name}}
+                                </option>
+                            </select>
+                            <button type="submit" class="saveCat"> Save Category </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+    
+
+
     </div>
 
 
-    <div class="products">
+    
+
+    <!-- <div class="products">
         <router-outlet></router-outlet>
-    </div>
+    </div> -->
     
 </div>

@@ -217,6 +217,7 @@ public class banjaraController{
 	@PostMapping("/category")
 	public ResponseEntity<Category> saveCategory(@RequestBody Category cat){
 		Category cate = cateServ.save(cat);
+		System.out.println(" \n\n\nCategory receieved! \n\n\n");
 		return ResponseEntity.status(HttpStatus.OK).body(cate);
 	}
 	
